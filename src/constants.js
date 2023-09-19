@@ -6,7 +6,7 @@ export const categories = [
       {
         _id: uuid(),
         name: "food",
-        description: "Eating",
+        description: "Eat healthy",
         __v: 0,
       },
       {
@@ -15,18 +15,7 @@ export const categories = [
         description: "smart watches,phones... and more ",
         __v: 0,
       },
-      {
-        _id: uuid(),
-        name: "games",
-        description: "ps4 ,ps5,pc and retro",
-        __v: 0,
-      },
-      {
-        _id: uuid(),
-        name: "weapons",
-        description: "For your saftey",
-        __v: 0,
-      },
+  
     ],
   },
 ];
