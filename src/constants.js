@@ -25,7 +25,7 @@ export const products = [
     results: [
       {
         _id: uuid(),
-        name: "Stickies",
+        name: "burger",
         category: "office",
         inStock: 1222,
         price: 5,
@@ -49,7 +49,7 @@ export const products = [
       },
       {
         _id: uuid(),
-        name: "Plasma TV",
+        name: " TV",
         category: "electronics",
         inStock: 321,
         price: 999,
@@ -65,7 +65,7 @@ export const products = [
       },
       {
         _id: uuid(),
-        name: "Fancy Pants",
+        name: "Pants",
         category: "clothes",
         inStock: 3,
         price: 33,
@@ -73,7 +73,7 @@ export const products = [
       },
       {
         _id: uuid(),
-        name: "Green Jeans",
+        name: "Jeans",
         category: "clothes",
         inStock: 4,
         price: 11,
@@ -89,7 +89,7 @@ export const products = [
       },
       {
         _id: uuid(),
-        name: "Smash Bros",
+        name: " counter strike ",
         category: "games",
         inStock: 1,
         price: 321,
@@ -97,7 +97,7 @@ export const products = [
       },
       {
         _id: uuid(),
-        name: "Samurai Sword",
+        name: "sword",
         category: "weapons",
         inStock: 2,
         price:5300,
