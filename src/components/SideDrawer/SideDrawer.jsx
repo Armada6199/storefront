@@ -59,7 +59,7 @@ function TemporaryDrawer({ cart, removeFromCart }) {
                 >
                     {list('Current Items in Cart')}
                 </Drawer>
-                <Button variant='contained' color={'secondary'} onClick={toggleDrawer('right', true)}>{'Cart Items Menus'}</Button>
+                <Button variant='contained' color={'primary'} onClick={toggleDrawer('right', true)}>{'View Cart'}</Button>
             </React.Fragment>
         </div>
     );
