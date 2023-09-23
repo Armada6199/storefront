@@ -1,5 +1,12 @@
 # storefront
 
+
+## UML
+
+![UML](./assets/uml.png)
+
+
+
 ## PR
 
 <https://github.com/Armada6199/storefront/pull/1>
