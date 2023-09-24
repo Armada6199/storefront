@@ -20,17 +20,17 @@ export function cartReducer(state = initialState, action) {
     }
 }
 
-export const addToCart = (payload) => {
-    console.log(payload)
-    return {
-        type: 'ADD-TO-CART',
-        payload: payload
-    }
-}
-export const removeFromCart = (payload) => {
-    return {
-        type: 'REMOVE-FROM-CART',
-        payload: payload
-    }
-}
+// export const addToCart = (payload) => {
+//     console.log(payload)
+//     return {
+//         type: 'ADD-TO-CART',
+//         payload: payload
+//     }
+// }
+// export const removeFromCart = (payload) => {
+//     return {
+//         type: 'REMOVE-FROM-CART',
+//         payload: payload
+//     }
+// }
 
