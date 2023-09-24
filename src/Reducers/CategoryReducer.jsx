@@ -60,15 +60,15 @@ export const setCategories = (payload) => {
         payload: payload
     }
 }
-// export const setProducts = (payload) => {
-//     return {
-//         type: 'SET-CURRENT-PRODUCT',
-//         payload: payload
-//     }
-// }
-// export const setRenderList = (payload) => {
-//     return {
-//         type: 'SET-RENDER-PRODUCTS',
-//         payload: payload
-//     }
-// }
+export const setProducts = (payload) => {
+    return {
+        type: 'SET-CURRENT-PRODUCT',
+        payload: payload
+    }
+}
+export const setRenderList = (payload) => {
+    return {
+        type: 'SET-RENDER-PRODUCTS',
+        payload: payload
+    }
+}
