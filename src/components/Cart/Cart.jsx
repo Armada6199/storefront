@@ -123,7 +123,7 @@ function Cart(props) {
                 onClick={() => alert('Thank you for your purchase')}
                 style={{ marginTop: '20px' }} 
               >
-                Place Your Order
+               Order Now
               </Button>
             </Grid>
           </Grid>
