@@ -10,7 +10,7 @@ function Header(props) {
     return (
         <AppBar position='static' color='primary'>
             <Toolbar>   
-                <Typography variant='h6' component={'div'} sx={{ flexGrow: 1 }}>Storefront</Typography>
+                <Typography variant='h6' component={'div'} sx={{ flexGrow: 1 }}> <Link style={{color:'white',textDecoration:'none'}} to={'/'}>Storefront</Link></Typography>
                 <Stack>
                     <IconButton component={Link} to='/cart' color='inherit'><ShoppingCartOutlinedIcon fontSize='medium' /> ( {props.cart.cart.length} )</IconButton>
                 </Stack>

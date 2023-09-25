@@ -5,8 +5,7 @@ import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import Cart from './components/Cart/Cart';
 import ProductsPage from './pages/Products/ProductsPage';
-// import CategoryProvider from './components/context/categoryProvider/CategoryProvider';
-
+import ProductDetails from './components/Products/ProductDetails';
 
 function App() {
   return (
@@ -17,6 +16,7 @@ function App() {
 
         <Route path='/' element={<ProductsPage />}></Route>
         <Route path='/cart' element={<Cart />}></Route>
+        <Route path='/product/:id' element={<ProductDetails />} />
 
       </Routes>
       <Footer />

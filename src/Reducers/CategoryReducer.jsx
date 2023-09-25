@@ -1,11 +1,12 @@
+import axios from "axios"
+import { products } from "../constants"
+
 export let initialState = {
     activeCategory: '',
     categories: [],
     products: [],
     toRender: []
 }
-
-
 export function categoryReducer(state = initialState, action) {
     switch (action.type) {
         case 'SET-ACTIVE-CATEGORY': {
@@ -70,5 +71,15 @@ export const setRenderList = (payload) => {
     return {
         type: 'SET-RENDER-PRODUCTS',
         payload: payload
+    }
+}
+
+export const getProducts = (activeCategory) => async dispatch => {
+    try {
+        let currentProducts = products.data.results.filter(element => element.category === activeCategory)
+        dispatch(setProducts(currentProducts))
+    } catch (err) {
+        console.log(err)
+
     }
 }
