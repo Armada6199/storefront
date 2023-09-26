@@ -7,6 +7,7 @@ import {
   setCategories,
   setProducts,
   setRenderList,
+  getProducts
 } from '../../Reducers/CategoryReducer';
 import Product from './Product';
 import { categories,products } from '../../constants';
@@ -14,16 +15,16 @@ function ProductList(props) {
   useEffect(() => {
     async function fetchCategoriesAndProducts() {
       try {
-       //mock an api reqeust to fetch the constants from another file 
-       console.log(categories,products)
-        props.setCategories(categories[0].results);
+        let data = await axios.get(`https://api-js401.herokuapp.com/api/v1/categories`)
+        console.log(data.data.results);
+        props.setCategories(data.data.results);
         props.setProducts(products[0].results);
         props.setActiveCategory('electronics');
       } catch (err) {
         console.log(err);
       }
     }
-
+    props.getProducts(props.productManager.categoryReducer.activeCategory)
     fetchCategoriesAndProducts();
   }, [props.setCategories, props.setProducts, props.setActiveCategory]);
 
@@ -74,12 +75,14 @@ function ProductList(props) {
 
 const mapStateToProps = (state) => ({
   productManager: state,
+  cart: state.cartReducer
 });
 
 const mapDispatchToProps = {
   setActiveCategory,
   setCategories,
   setProducts,
+  getProducts,
   setRenderList,
 };
 

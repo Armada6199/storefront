@@ -10,17 +10,14 @@ import ProductDetails from './components/Products/ProductDetails';
 function App() {
   return (
     <BrowserRouter>
-      {/* <CategoryProvider> */}
       <Header />
       <Routes>
 
         <Route path='/' element={<ProductsPage />}></Route>
         <Route path='/cart' element={<Cart />}></Route>
-        <Route path='/product/:id' element={<ProductDetails />} />
 
       </Routes>
       <Footer />
-      {/* </CategoryProvider> */}
     </BrowserRouter>
   );
 }

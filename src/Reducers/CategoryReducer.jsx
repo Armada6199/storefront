@@ -1,12 +1,13 @@
 import axios from "axios"
-import { products } from "../constants"
 
 export let initialState = {
-    activeCategory: '',
+    activeCategory: 'electronics',
     categories: [],
     products: [],
     toRender: []
 }
+
+
 export function categoryReducer(state = initialState, action) {
     switch (action.type) {
         case 'SET-ACTIVE-CATEGORY': {
@@ -21,31 +22,20 @@ export function categoryReducer(state = initialState, action) {
         case 'SET-RENDER-PRODUCTS': {
             return { ...state, toRender: action.payload }
         }
-        case 'ADD-TO-CART': {
-            let newArr = state.products.map(element => {
-                if (element.name === action.payload.name) {
-                    let newElement = { ...element, inStock: element.inStock - 1 }
-                    return newElement
-                }
-                return element
-
-            })
-            console.log(newArr)
-            return { ...state, products: newArr }
-        }
-        case 'REMOVE-FROM-CART': {
-            let newArr = state.products.map(element => {
-                if (element.name === action.payload.name) {
-                    let newElement = { ...element, inStock: element.inStock + 1 }
-                    return newElement
-                }
-                return element
-
-            })
-            console.log(newArr)
-            return { ...state, products: newArr }
-        }
         default: return state
+    }
+}
+
+export const getProducts = (activeCategory) => async dispatch => {
+
+    try {
+
+        let data = await axios.get(`https://api-js401.herokuapp.com/api/v1/products`)
+        let currentProducts = data.data.results.filter(element => element.category === activeCategory)
+        dispatch(setProducts(currentProducts))
+    } catch (err) {
+        console.log(err)
+
     }
 }
 
@@ -71,15 +61,5 @@ export const setRenderList = (payload) => {
     return {
         type: 'SET-RENDER-PRODUCTS',
         payload: payload
-    }
-}
-
-export const getProducts = (activeCategory) => async dispatch => {
-    try {
-        let currentProducts = products.data.results.filter(element => element.category === activeCategory)
-        dispatch(setProducts(currentProducts))
-    } catch (err) {
-        console.log(err)
-
     }
 }
