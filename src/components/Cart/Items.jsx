@@ -1,67 +1,148 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { connect } from 'react-redux';
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Box,
   Button,
+  ButtonGroup,
   Card,
   CardActions,
   CardContent,
   CardMedia,
+  Stack,
   Typography,
 } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 import {
   setActiveCategory,
   setCategories,
   setProducts,
   setRenderList,
+  getProducts
 } from '../../Reducers/CategoryReducer';
 import { addToCart, removeFromCart } from '../../Reducers/CartReducer';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-function Items(props) {
-  const { product, price, inStock, name, removeFromCart } = props;
 
-  const cardStyle = {
-    width: '300px',
-    backgroundColor: '#f0f0f0', // Change the background color
-  };
+function CartItem(props) {
+  // console.log(props)
+  function handleAddToCart(product) {
+      console.log(product)
+      console.log(props.cart.cart)
+      let found = props.cart.cart.filter(element => element.name === product.name)
+      if (!found[0]) {
+          // console.log(found[0])
+          props.addToCart(product)
+      }
+      else return
+  }
+  useEffect(() => {
+      async function Categories() {
+          try {
+              let data = await axios.get(`https://api-js401.herokuapp.com/api/v1/categories`)
+              props.setCategories(data.data.results)
+          } catch (err) {
+              console.log(err)
+          }
+      }
 
-  const mediaStyle = {
-    height: '200px',
-  };
-
-  const centerTextStyle = {
-    textAlign: 'center',
-  };
-
+      props.getProducts(props.productManager.activeCategory)
+      Categories()
+  }, [props.cart.cart, props.productManager.activeCategory])
   return (
-    <Box>
-      <Card style={cardStyle}>
-        <CardMedia
-          component="img"
-          image={`https://source.unsplash.com/random?${name}`}
-          style={mediaStyle}
-        />
-        <CardContent style={centerTextStyle}>
-          <Typography variant="h5">{product.name}</Typography>
-          <Typography variant="body1">Price: ${price}</Typography>
-          <Typography variant="body1">Stock: {inStock}</Typography>
-        </CardContent>
-        <CardActions style={centerTextStyle}>
-          <Button onClick={() => removeFromCart(product)} color="primary">
-            Remove From Cart
-          </Button>
-          <Button color="primary">More Details</Button>
-        </CardActions>
-      </Card>
-    </Box>
-  );
+
+      <Box bgcolor={'#eeeeee'} width={'800px'} >
+          <Card sx={{ height: '100%' }}>
+              <CardMedia
+                  component={'img'}
+                  image={`https://source.unsplash.com/random?${props.name}`}
+                  height={'500px'} />
+              <CardContent sx={
+                  {
+                      textAlign: 'center'
+                  }
+              }>
+                  <Typography variant='h5'>{props.product.name}</Typography>
+                  <Typography variant='body1'>Price: {props.price}$</Typography>
+                  <Typography variant='body1'>Stock: {props.inStock}</Typography>
+              </CardContent>
+              <CardActions sx={
+                  {
+                      justifyContent: 'center'
+                  }
+              } >
+                  {/* <Button onClick={() => props.removeFromCart(props.product)} color={'secondary'}>Remove From Cart</Button> */}
+                  <Button variant='contained' size='large' onClick={() => handleAddToCart(props.product)} color={'secondary'}>Buy</Button>
+              </CardActions>
+              <CardContent>
+                  <Stack>
+                      <Typography>Related Items</Typography>
+                      <ButtonGroup size='large'>
+                          {props.productManager.products
+                              ?.reduce((buttons, item) => {
+                                  if (item.category === props.product.category && item.name !== props.name) {
+                                      buttons.push(
+                                          <Button
+                                              key={item._id}
+                                              variant='outlined'
+                                              color='secondary'
+                                              component={Link}
+                                              to={`/product/${item._id}`}
+                                          >{item.name}</Button>
+                                      );
+                                  }
+                                  return buttons;
+                              }, [])}
+
+
+                      </ButtonGroup>
+                  </Stack>
+              </CardContent>
+              <CardContent>
+                  <Accordion>
+                      <AccordionSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel1a-content"
+                          id="panel1a-header"
+                      >
+                          <Typography>Specification</Typography>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                          <Typography>
+                              this {props.product.name} is definetly the choice for you, it makes your life better, and it is one of the best products we have, don't hesitate to buy it
+                          </Typography>
+                      </AccordionDetails>
+                  </Accordion>
+                  <Accordion>
+                      <AccordionSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel2a-content"
+                          id="panel2a-header"
+                      >
+                          <Typography>Reviews</Typography>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                          <Typography>
+                              Andy: Best quality products
+                          </Typography>
+                      </AccordionDetails>
+                  </Accordion>
+
+              </CardContent>
+          </Card>
+      </Box>
+
+  )
 }
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   productManager: state.categoryReducer,
-  cart: state.cartReducer,
-});
+  cart: state.cartReducer
 
+})
 const mapDispatchToProps = {
   setActiveCategory,
   setCategories,
@@ -69,6 +150,6 @@ const mapDispatchToProps = {
   setRenderList,
   addToCart,
   removeFromCart,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Items);
+  getProducts
+}
+export default connect(mapStateToProps, mapDispatchToProps)(CartItem)
