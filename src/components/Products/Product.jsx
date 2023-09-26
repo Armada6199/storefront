@@ -6,9 +6,8 @@ import { Link } from 'react-router-dom';
 
 function Product(props) {
   function handleAddToCart(product) {
-    console.log(product);
     let found = props.cart.cart.filter((element) => element.name === product.name);
-    if (!found[0]) {
+    if (found.length===0) {
       props.addToCart(product);
     } else return;
   }

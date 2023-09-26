@@ -8,10 +8,17 @@ import {
   Button,
 } from '@mui/material';
 import { useParams } from 'react-router-dom';
+import { addToCart } from '../../Reducers/CartReducer';
 
 function ProductDetail(props) {
   const { id } = useParams();
-
+  function handleAddToCart(product) {
+    let found = props.cart.cart.filter((element) => element.name === product.name);
+    console.log(found)
+    if (found.length===0) {
+      props.addToCart(product);
+    } else return;
+  }
   const selectedProduct = props.productManager.categoryReducer.products?.find(
     (product) => product['_id'] === id
   );
@@ -80,6 +87,8 @@ function ProductDetail(props) {
                 {selectedProduct ? selectedProduct.price : ''}
               </Typography>
             </Grid>
+            <Button onClick={() => handleAddToCart(selectedProduct)} color={'primary'}>Add to Cart</Button>
+
           </Grid>
         
         </Paper>
@@ -91,6 +100,10 @@ function ProductDetail(props) {
 const mapStateToProps = (state) => ({
   productManager: state,
   cart: state.cartReducer,
-});
 
-export default connect(mapStateToProps)(ProductDetail);
+});
+const mapDispatchToProps = {
+  addToCart,
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(ProductDetail);

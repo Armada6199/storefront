@@ -120,7 +120,6 @@ function Cart(props) {
                 variant="contained"
                 color="primary" 
                 fullWidth
-                onClick={() => alert('Thank you for your purchase')}
                 style={{ marginTop: '20px' }} 
               >
                Order Now
